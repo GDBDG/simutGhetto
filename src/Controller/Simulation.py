@@ -5,9 +5,12 @@ from Model.Simulation import Simulation
 
 
 def launchSimu(ghetto, taille=10):
-    simu = Simulation([0.5, 1], taille)
+    simu = Simulation(2, taille)
 
-    while True:
+    for i in range(200):
+        print(f"tour {i}")
+        ghetto.afficherEtape(getListColor(simu))
+        ghetto.canvas.update()
         simu.unTour()
         ghetto.afficherEtape(getListColor(simu))
         ghetto.canvas.update()

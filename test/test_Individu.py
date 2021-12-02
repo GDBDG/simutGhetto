@@ -6,12 +6,13 @@ from src.Model.Individu import Individu
 
 
 def test_getVoisin():
-    simu = Simulation([1], 4)
-
+    # with mock.patch("typing.MutableMapping.pop"):
+    simu = Simulation(1, 4)
+    print(simu.listIndividus)
     expected = [individu for individu in simu.listIndividus.values() if
                 (individu.abscisse <= 2) and (individu.ordonnee <= 2) and (
                         individu.abscisse != 1 or individu.ordonnee != 1)]
-    assert expected == simu.listIndividus[(1, 1)].getVoisins(simu.listIndividus)
+    assert simu.listIndividus[(1, 1)].getVoisins(simu.listIndividus, simu.taille) == expected
 
 
 def test_estSatisfait():

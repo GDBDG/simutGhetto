@@ -6,7 +6,7 @@ from random import random, choice
 
 
 class Simulation:
-    def __init__(self, listProbaRace, taille=10):
+    def __init__(self, nbRace, taille=10):
         """
         Crée une grille d'individus, et supprime ceux des 4 coins,
         ainsi que 10 % des individus
@@ -21,14 +21,14 @@ class Simulation:
             condition3 = not (ordonnee == taille - 1 and not abscisse)
             condition4 = not (ordonnee == taille - 1 and abscisse == taille - 1)
             if condition1 and condition2 and condition3 and condition4:
-                self.listIndividus[(abscisse, ordonnee)] = Individu(getRaceFromProba(listProbaRace), abscisse, ordonnee)
+                self.listIndividus[(abscisse, ordonnee)] = Individu(getRaceFromProba(abscisse + ordonnee, nbRace), abscisse, ordonnee)
         # Retirer 10 % des individus
         for _ in range(taille*taille//10):
             self.listIndividus.pop(choice(list(self.listIndividus.keys())))
 
     def getCasesLibres(self):
         """
-        Renvoie la liste des cases dans les quelles il n'y a pas d'individu@@
+        Renvoie la liste des cases dans les quelles il n'y a pas d'individu
         :return:
         """
         return [(i, j) for (i, j) in product(range(self.taille), range(self.taille)) if
@@ -41,4 +41,4 @@ class Simulation:
         :return:
         """
         for individu in deepcopy(self.listIndividus).values():
-            individu.unTour(self.getCasesLibres(), self.listIndividus)
+            individu.unTour(self.getCasesLibres(), self.listIndividus, self.taille)
