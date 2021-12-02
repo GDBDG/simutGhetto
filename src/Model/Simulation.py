@@ -2,7 +2,7 @@ from copy import deepcopy
 from itertools import product
 
 from Model.Individu import Individu, getRaceFromProba
-from random import random, choice
+from random import random, choice, shuffle
 
 
 class Simulation:
@@ -40,5 +40,10 @@ class Simulation:
         Regarde tous les individus, et les déplace dans une case libre si dispo
         :return:
         """
+        casesLibres = self.getCasesLibres()
+        shuffle(casesLibres)
         for individu in deepcopy(self.listIndividus).values():
-            individu.unTour(self.getCasesLibres(), self.listIndividus, self.taille)
+            coord = (individu.abscisse, individu.ordonnee)
+            individu.unTour(casesLibres, self.listIndividus, self.taille)
+            casesLibres.append(coord)
+            casesLibres.remove((individu.abscisse, individu.ordonnee))
