@@ -46,11 +46,5 @@ class Ghetto:
         :return:
         """
         for key, color in listColor.items():
-            self.individus[key].graphe = self.canvas.create_rectangle(
-                key[0] * self.width_case,
-                key[1] * self.width_case,
-                (key[0] + 1) * self.width_case,
-                (key[1] + 1) * self.width_case,
-                fill=color,
-            )
+            self.canvas.itemconfig(self.individus[key].graphe, fill=color)
 
