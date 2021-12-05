@@ -7,10 +7,11 @@ logger = logging.getLogger()
 
 class Individu:
 
-    def __init__(self, groupe=0, abscisse=0, ordonnee=0):
+    def __init__(self, groupe=0, abscisse=0, ordonnee=0, tolerance=20):
         self.groupe = groupe
         self.abscisse = abscisse
         self.ordonnee = ordonnee
+        self.tolerance = tolerance
         logger.info(f"Creation de {self}")
 
     def __repr__(self):
@@ -46,23 +47,16 @@ class Individu:
     def estSatisfait(self, listIndividu):
         """
         Renvoie un boolean indiquant si l'individu est satisfait du nombre de ses voisins de même groupe
-        Si 0 voisin : satisfait
-        Si 1 ou 2 voisins : au moins 1 semblable
-        Si 3, 4 ou 5 voisins : au moins 2 semblables
-        Si 6, 7 ou 8 voisins : au moins 3 semblables
         :return: boolean de satisfaction
         """
         nombreVoisin = len(self.getVoisins(listIndividu))
         if not nombreVoisin:
             return True
-        elif nombreVoisin <= 2:
-            return len(self.getVoisinsMemeGroupe(listIndividu)) >= 1
-        elif nombreVoisin <= 5:
-            return len(self.getVoisinsMemeGroupe(listIndividu)) >= 2
-        elif nombreVoisin <= 8:
-            return len(self.getVoisinsMemeGroupe(listIndividu)) >= 3
+        else:
+            return len(self.getVoisinsGroupeDifferent(listIndividu)) / nombreVoisin <= self.tolerance / 100
 
-    # def estSatisfait(self, listIndividu, taille):
+
+    # def estSatisfait(self, listIndividu):
     #     """
     #     Renvoie un boolean indiquant si l'individu est satisfait du nombre de ses voisins de même groupe
     #     Si 0 voisin : satisfait
@@ -71,15 +65,15 @@ class Individu:
     #     Si 6, 7 ou 8 voisins : au moins 3 semblables
     #     :return: boolean de satisfaction
     #     """
-    #     nombreVoisin = len(self.getVoisins(listIndividu, taille))
+    #     nombreVoisin = len(self.getVoisins(listIndividu))
     #     if not nombreVoisin:
     #         return True
     #     elif nombreVoisin <= 3:
-    #         return len(self.getVoisinsMemeGroupe(listIndividu, taille)) == nombreVoisin
+    #         return len(self.getVoisinsMemeGroupe(listIndividu)) == nombreVoisin
     #     elif nombreVoisin <= 6:
-    #         return len(self.getVoisinsGroupeDifferent(listIndividu, taille)) <= 1
+    #         return len(self.getVoisinsGroupeDifferent(listIndividu)) <= 1
     #     elif nombreVoisin <= 8:
-    #         return len(self.getVoisinsGroupeDifferente(listIndividu, taille)) <= 2
+    #         return len(self.getVoisinsGroupeDifferent(listIndividu)) <= 2
 
     def demenager(self, casesLibres, listIndividus):
         """

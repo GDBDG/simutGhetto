@@ -7,7 +7,7 @@ from random import random, choice, shuffle
 
 
 class Simulation:
-    def __init__(self, nbGroupe, taille=10):
+    def __init__(self, nbGroupe, taille=10, tolerance=20):
         """
         Crée une grille d'individus, et supprime ceux des 4 coins,
         ainsi que 10 % des individus
@@ -16,7 +16,7 @@ class Simulation:
         self.listIndividus = {}
         self.taille = taille
         for abscisse, ordonnee in product(range(taille), range(taille)):
-            self.listIndividus[(abscisse, ordonnee)] = Individu(getGroupeFromCompteur(abscisse + ordonnee, nbGroupe), abscisse, ordonnee)
+            self.listIndividus[(abscisse, ordonnee)] = Individu(getGroupeFromCompteur(abscisse + ordonnee, nbGroupe), abscisse, ordonnee, tolerance)
         for _ in range(taille * taille // FACTEUR_VIDE):
             self.listIndividus.pop(choice(list(self.listIndividus.keys())))
 
