@@ -33,11 +33,11 @@ class Ghetto:
                 (ordonnee + 1) * self.width_case,
                 fill=COLOR_EMPTY,
             )
-        self.labelNbRace = Label(self.frameButton, text="Nombre de race")
-        self.labelNbRace.grid(column=0, row=1)
-        self.nbRaceValue = IntVar(value=2)
-        self.entrynbRace = Entry(self.frameButton, width=20, textvariable=self.nbRaceValue)
-        self.entrynbRace.grid(column=1, row=1)
+        self.labelNbGroupe = Label(self.frameButton, text="Nombre de groupe")
+        self.labelNbGroupe.grid(column=0, row=1)
+        self.nbGroupeValue = IntVar(value=2)
+        self.entrynbGroupe = Entry(self.frameButton, width=20, textvariable=self.nbGroupeValue)
+        self.entrynbGroupe.grid(column=1, row=1)
 
     def afficherEtape(self, listColor):
         """
@@ -54,13 +54,3 @@ class Ghetto:
                 fill=color,
             )
 
-    def launch_simu(self):
-        for _ in range(self.nbRaceValue.get()):
-            for case in self.individus.values():
-                self.canvas.itemconfig(case.graphe, fill="red")
-            time.sleep(1)
-            self.canvas.update()
-            for case in self.individus.values():
-                self.canvas.itemconfig(case.graphe, fill="blue")
-            time.sleep(1)
-            self.canvas.update()

@@ -7,14 +7,14 @@ logger = logging.getLogger()
 
 class Individu:
 
-    def __init__(self, race=0, abscisse=0, ordonnee=0):
-        self.race = race
+    def __init__(self, groupe=0, abscisse=0, ordonnee=0):
+        self.groupe = groupe
         self.abscisse = abscisse
         self.ordonnee = ordonnee
         logger.info(f"Creation de {self}")
 
     def __repr__(self):
-        return f"Race : {self.race}\nabscisse : {self.abscisse}, \nordonnee : {self.ordonnee}\n\n"
+        return f"Groupe : {self.groupe}\nabscisse : {self.abscisse}, \nordonnee : {self.ordonnee}\n\n"
 
     def getVoisins(self, listIndividu, taille):
         """
@@ -29,23 +29,23 @@ class Individu:
                 listVoisin.append(listIndividu[(abscisse, ordonnee)])
         return listVoisin
 
-    def getVoisinsMemeRace(self, listIndividu, taille):
+    def getVoisinsMemeGroupe(self, listIndividu, taille):
         """
-        Renvoie les voisins de même race
+        Renvoie les voisins de même groupe
         :return:
         """
-        return [voisin for voisin in self.getVoisins(listIndividu, taille) if voisin.race == self.race]
+        return [voisin for voisin in self.getVoisins(listIndividu, taille) if voisin.groupe == self.groupe]
 
-    def getVoisinsRaceDifferente(self, listIndividu, taille):
+    def getVoisinsGroupeDifferent(self, listIndividu, taille):
         """
-        Renvoie les voisins de race différente
+        Renvoie les voisins de groupe différente
         :return:
         """
-        return [voisin for voisin in self.getVoisins(listIndividu, taille) if voisin.race != self.race]
+        return [voisin for voisin in self.getVoisins(listIndividu, taille) if voisin.groupe != self.groupe]
 
     def estSatisfait(self, listIndividu, taille):
         """
-        Renvoie un boolean indiquant si l'individu est satisfait du nombre de ses voisins de même race
+        Renvoie un boolean indiquant si l'individu est satisfait du nombre de ses voisins de même groupe
         Si 0 voisin : satisfait
         Si 1 ou 2 voisins : au moins 1 semblable
         Si 3, 4 ou 5 voisins : au moins 2 semblables
@@ -56,11 +56,30 @@ class Individu:
         if not nombreVoisin:
             return True
         elif nombreVoisin <= 2:
-            return len(self.getVoisinsMemeRace(listIndividu, taille)) >= 1
+            return len(self.getVoisinsMemeGroupe(listIndividu, taille)) >= 1
         elif nombreVoisin <= 5:
-            return len(self.getVoisinsMemeRace(listIndividu, taille)) >= 2
+            return len(self.getVoisinsMemeGroupe(listIndividu, taille)) >= 2
         elif nombreVoisin <= 8:
-            return len(self.getVoisinsMemeRace(listIndividu, taille)) >= 3
+            return len(self.getVoisinsMemeGroupe(listIndividu, taille)) >= 3
+
+    # def estSatisfait(self, listIndividu, taille):
+    #     """
+    #     Renvoie un boolean indiquant si l'individu est satisfait du nombre de ses voisins de même groupe
+    #     Si 0 voisin : satisfait
+    #     Si 1 ou 2 voisins : au moins 1 semblable
+    #     Si 3, 4 ou 5 voisins : au moins 2 semblables
+    #     Si 6, 7 ou 8 voisins : au moins 3 semblables
+    #     :return: boolean de satisfaction
+    #     """
+    #     nombreVoisin = len(self.getVoisins(listIndividu, taille))
+    #     if not nombreVoisin:
+    #         return True
+    #     elif nombreVoisin <= 3:
+    #         return len(self.getVoisinsMemeGroupe(listIndividu, taille)) == nombreVoisin
+    #     elif nombreVoisin <= 6:
+    #         return len(self.getVoisinsGroupeDifferent(listIndividu, taille)) <= 1
+    #     elif nombreVoisin <= 8:
+    #         return len(self.getVoisinsGroupeDifferente(listIndividu, taille)) <= 2
 
     def demenager(self, casesLibres, listIndividus, taille):
         """
@@ -89,9 +108,9 @@ class Individu:
             self.demenager(casesLibres, listIndividus, taille)
 
 
-def getRaceFromProba(compteur, nbRace):
+def getGroupeFromCompteur(compteur, nbGroupe):
     """
-    Renvoie la race tirée aléatoirement à partir de la list des probas
+    Renvoie la groupe tirée aléatoirement à partir de la list des probas
     :return:
     """
-    return compteur % nbRace
+    return compteur % nbGroupe
