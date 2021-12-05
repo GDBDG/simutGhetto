@@ -38,6 +38,6 @@ class Simulation:
         shuffle(casesLibres)
         for individu in deepcopy(self.listIndividus).values():
             coord = (individu.abscisse, individu.ordonnee)
-            individu.unTour(casesLibres, self.listIndividus, self.taille)
+            individu.unTour(casesLibres, self.listIndividus)
             casesLibres.append(coord)
             casesLibres.remove((individu.abscisse, individu.ordonnee))

@@ -12,7 +12,7 @@ def test_getVoisin():
     expected = [individu for individu in simu.listIndividus.values() if
                 (individu.abscisse <= 2) and (individu.ordonnee <= 2) and (
                         individu.abscisse != 1 or individu.ordonnee != 1)]
-    assert simu.listIndividus[(1, 1)].getVoisins(simu.listIndividus, simu.taille) == expected
+    assert simu.listIndividus[(1, 1)].getVoisins(simu.listIndividus) == expected
 
 
 def test_estSatisfait():
@@ -41,7 +41,7 @@ def test_estSatisfait():
 
 def test_demenager():
     listIndividu = {(1,1): Individu(1,1,1)}
-    listIndividu[(1,1)].demenager([(1,2)], listIndividu)
+    listIndividu[(1, 1)].demenager([(1, 2)], listIndividu)
     assert list(listIndividu.keys()) == [(1,2)]
 
 
