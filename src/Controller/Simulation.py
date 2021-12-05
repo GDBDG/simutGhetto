@@ -4,8 +4,8 @@ from CONSTANTES import COLOR, COLOR_EMPTY
 from Model.Simulation import Simulation
 
 
-def launchSimu(ghetto, taille=10):
-    simu = Simulation(2, taille)
+def launchSimu(ghetto, ghettoInstance,  taille=10):
+    simu = Simulation(ghettoInstance.nbGroupeValue.get(), taille)
     ghetto.afficherEtape(getListColor(simu))
     ghetto.canvas.update()
     for i in range(200):
@@ -28,4 +28,3 @@ def getListColor(simu: Simulation):
         else:
             colors[(i, j)] = COLOR_EMPTY
     return colors
-

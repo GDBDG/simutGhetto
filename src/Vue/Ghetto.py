@@ -20,7 +20,13 @@ class Ghetto:
 
         self.frameButton = Frame(self.root)
         self.frameButton.grid(row=0, column=1)
-        action = partial(launchSimu, self, dim)
+        self.labelNbGroupe = Label(self.frameButton, text="Nombre de groupe")
+        self.labelNbGroupe.grid(column=0, row=1)
+        self.nbGroupeValue = IntVar(value=2)
+        self.entrynbGroupe = Entry(self.frameButton, width=20, textvariable=self.nbGroupeValue)
+        self.entrynbGroupe.grid(column=1, row=1)
+
+        action = partial(launchSimu, self, self, dim)
         ttk.Button(self.frameButton, text="Launch Simu", command=action).grid(column=0, row=0)
 
         self.individus = {}
@@ -33,11 +39,6 @@ class Ghetto:
                 (ordonnee + 1) * self.width_case,
                 fill=COLOR_EMPTY,
             )
-        self.labelNbGroupe = Label(self.frameButton, text="Nombre de groupe")
-        self.labelNbGroupe.grid(column=0, row=1)
-        self.nbGroupeValue = IntVar(value=2)
-        self.entrynbGroupe = Entry(self.frameButton, width=20, textvariable=self.nbGroupeValue)
-        self.entrynbGroupe.grid(column=1, row=1)
 
     def afficherEtape(self, listColor):
         """
