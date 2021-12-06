@@ -24,8 +24,8 @@ class Individu:
         """
         listVoisin = []
         for (abscisse, ordonnee) in product(
-                range(self.abscisse - 1,  self.abscisse + 2),
-                range(self.ordonnee - 1,  self.ordonnee + 2)):
+                range(self.abscisse - 1, self.abscisse + 2),
+                range(self.ordonnee - 1, self.ordonnee + 2)):
             if (abscisse, ordonnee) in listIndividu.keys() and (abscisse != self.abscisse or ordonnee != self.ordonnee):
                 listVoisin.append(listIndividu[(abscisse, ordonnee)])
         return listVoisin
@@ -54,7 +54,6 @@ class Individu:
             return True
         else:
             return len(self.getVoisinsGroupeDifferent(listIndividu)) / nombreVoisin <= self.tolerance / 100
-
 
     # def estSatisfait(self, listIndividu):
     #     """

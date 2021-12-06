@@ -1,3 +1,4 @@
+import time
 from itertools import product
 
 from CONSTANTES import COLOR, COLOR_EMPTY
@@ -13,6 +14,7 @@ def launchSimu(ghetto, taille=10):
         simu.unTour()
         ghetto.afficherEtape(getListColor(simu))
         ghetto.canvas.update()
+        time.sleep(float(ghetto.tempsAttenteValue.get()))
 
 
 def getListColor(simu: Simulation):

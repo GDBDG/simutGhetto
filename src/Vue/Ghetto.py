@@ -36,6 +36,13 @@ class Ghetto:
         self.entryTolerance = Entry(self.frameButton, width=20, textvariable=self.toleranceValue)
         self.entryTolerance.grid(column=1, row=2)
 
+        # Temps d'attente entre les tours
+        self.labelTempsAttente = Label(self.frameButton, text="Temps d'attente")
+        self.labelTempsAttente.grid(column=0, row=3)
+        self.tempsAttenteValue = StringVar(value="0.5")
+        self.entryTempsAttente = Entry(self.frameButton, width=20, textvariable=self.tempsAttenteValue)
+        self.entryTempsAttente.grid(column=1, row=3)
+
         action = partial(launchSimu, self, dim)
         ttk.Button(self.frameButton, text="Launch Simu", command=action).grid(column=0, row=0)
 
